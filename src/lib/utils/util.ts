@@ -1,0 +1,1 @@
+export const LINKED_IN_MCP_URL  = "https://server.smithery.ai/@horizondatawave/hdw-mcp-server/mcp?api_key=1a6af46e-719f-4838-ba05-aade02af8ae5&profile=convinced-swift-PzMuiz"

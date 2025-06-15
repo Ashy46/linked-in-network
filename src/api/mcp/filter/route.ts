@@ -1,6 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
 import { OpenAI } from "openai";
+import { LINKED_IN_MCP_URL } from "@/lib/utils/util";
 
-// TODO: Install these packages for full MCP support:
-// npm install @langchain/openai @langchain/langgraph @langchain/mcp-adapters @modelcontextprotocol/sdk
+export async function POST(request: NextRequest) {
+  const { text } = await request.json();
+  const response = await fetch(LINKED_IN_MCP_URL, {
+    method: "POST",
+    body: JSON.stringify({ text }),
+  });
+}
+
+
+
+
+
+
+
+
 
