@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { OpenAI } from "openai";
 import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js"
-const { createSmitheryUrl } = require("@smithery/sdk/dist/shared/config.js")
+
 import { Client } from "@modelcontextprotocol/sdk/client/index.js"
 
 
@@ -14,13 +14,15 @@ export async function POST(request: NextRequest) {
   const { text } = await request.json();
 
   const openai_key = process.env.OPENAI_API_KEY;
-  const smithery_key = process.env.SMITHERY_API_KEY;
+  const smithery_key = process.env.SMITHERY_KEY;
 
   const openai = new OpenAI({
     apiKey: openai_key,
   });
 
-  const serverUrl = createSmitheryUrl("https://server.smithery.ai/@horizondatawave/hdw-mcp-server", { config: hdwConfig, apiKey: smithery_key})
+  // Create server URL like the Python example
+  const configB64 = Buffer.from(JSON.stringify(hdwConfig)).toString('base64');
+  const serverUrl = new URL(`https://server.smithery.ai/@horizondatawave/hdw-mcp-server/mcp?config=${configB64}&api_key=${smithery_key}`);
 
   const transport = new StreamableHTTPClientTransport(serverUrl)
   
